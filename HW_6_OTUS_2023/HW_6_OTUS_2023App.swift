@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct HW_6_OTUS_2023App: App {
+    
+    @StateObject private var coreDataController = CoreDataController()
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(SuffixViewModel(mocSavedSuffix: coreDataController.container.viewContext))
         }
     }
 }

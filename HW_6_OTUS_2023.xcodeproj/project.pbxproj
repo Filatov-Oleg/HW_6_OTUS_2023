@@ -16,6 +16,9 @@
 		1E8783342B2EFA7D00FBCF0B /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E8783332B2EFA7D00FBCF0B /* ContentView.swift */; };
 		1E8783362B2EFA7F00FBCF0B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E8783352B2EFA7F00FBCF0B /* Assets.xcassets */; };
 		1E8783392B2EFA7F00FBCF0B /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E8783382B2EFA7F00FBCF0B /* Preview Assets.xcassets */; };
+		1EAB41D02B3DE68600488183 /* SuffixCoreData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 1EAB41CE2B3DE68600488183 /* SuffixCoreData.xcdatamodeld */; };
+		1EAB41D22B3DECDF00488183 /* CoreDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAB41D12B3DECDF00488183 /* CoreDataController.swift */; };
+		1EAB41D52B3EE19E00488183 /* HistorySuffixesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EAB41D42B3EE19E00488183 /* HistorySuffixesListView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +32,9 @@
 		1E8783332B2EFA7D00FBCF0B /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		1E8783352B2EFA7F00FBCF0B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1E8783382B2EFA7F00FBCF0B /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		1EAB41CF2B3DE68600488183 /* SuffixCoreData.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = SuffixCoreData.xcdatamodel; sourceTree = "<group>"; };
+		1EAB41D12B3DECDF00488183 /* CoreDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataController.swift; sourceTree = "<group>"; };
+		1EAB41D42B3EE19E00488183 /* HistorySuffixesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistorySuffixesListView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -66,10 +72,13 @@
 				1E12956C2B31E888001A97E9 /* SuffixSort.swift */,
 				1E12956E2B31E8CB001A97E9 /* SuffixSequence.swift */,
 				1E1295702B31E91E001A97E9 /* SuffixViewModel.swift */,
+				1EAB41D12B3DECDF00488183 /* CoreDataController.swift */,
 				1E1D5D0B2B341F2B00A43570 /* JobScheduler.swift */,
 				1E8783352B2EFA7F00FBCF0B /* Assets.xcassets */,
 				1E8783372B2EFA7F00FBCF0B /* Preview Content */,
 				1E2956B92B38894500255B15 /* SuffixModel.swift */,
+				1EAB41CE2B3DE68600488183 /* SuffixCoreData.xcdatamodeld */,
+				1EAB41D42B3EE19E00488183 /* HistorySuffixesListView.swift */,
 			);
 			path = HW_6_OTUS_2023;
 			sourceTree = "<group>";
@@ -152,10 +161,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1EAB41D52B3EE19E00488183 /* HistorySuffixesListView.swift in Sources */,
 				1E1D5D0C2B341F2B00A43570 /* JobScheduler.swift in Sources */,
 				1E12956D2B31E888001A97E9 /* SuffixSort.swift in Sources */,
 				1E2956BA2B38894500255B15 /* SuffixModel.swift in Sources */,
+				1EAB41D02B3DE68600488183 /* SuffixCoreData.xcdatamodeld in Sources */,
 				1E12956F2B31E8CC001A97E9 /* SuffixSequence.swift in Sources */,
+				1EAB41D22B3DECDF00488183 /* CoreDataController.swift in Sources */,
 				1E8783342B2EFA7D00FBCF0B /* ContentView.swift in Sources */,
 				1E8783322B2EFA7D00FBCF0B /* HW_6_OTUS_2023App.swift in Sources */,
 				1E1295712B31E91E001A97E9 /* SuffixViewModel.swift in Sources */,
@@ -364,6 +376,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		1EAB41CE2B3DE68600488183 /* SuffixCoreData.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				1EAB41CF2B3DE68600488183 /* SuffixCoreData.xcdatamodel */,
+			);
+			currentVersion = 1EAB41CF2B3DE68600488183 /* SuffixCoreData.xcdatamodel */;
+			path = SuffixCoreData.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 1E8783262B2EFA7D00FBCF0B /* Project object */;
 }

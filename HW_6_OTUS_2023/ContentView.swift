@@ -6,10 +6,16 @@
 //
 
 import SwiftUI
+import CoreData
+
+struct ViewOffsetKey: PreferenceKey {
+    static var defaultValue: CGFloat = 0
+    static func reduce(value: inout CGFloat, nextValue: () -> CGFloat) {}
+}
 
 struct ContentView: View {
 
-    @StateObject var viewModel: SuffixViewModel = .init()
+    @EnvironmentObject var viewModel: SuffixViewModel
     
     @State var needShowHistorySuffixes: Bool = false
     @State var text: String = ""
@@ -27,8 +33,8 @@ struct ContentView: View {
                     }
                 }
             Text(viewModel.suffixSort == .ASC ? "По возрастанию" :  "По убыванию")
-            
-            List { 
+
+            List {
                 ForEach(viewModel.sortedSuffixes) { model in
                     HStack{
                         Text(model.suffix)
@@ -37,7 +43,7 @@ struct ContentView: View {
                         Spacer()
                         Text(String(describing: model.time) + " s")
                     }
-                    .listRowBackground(Color.green.opacity(opacityForegroundText(for: model.id.uuidString)))
+                    .listRowBackground(Color(uiColor: colorForegroundText(for: model)))
                 }
             }
             .listStyle(.plain)
@@ -56,22 +62,23 @@ struct ContentView: View {
             }
         }
         .sheet(isPresented: $needShowHistorySuffixes, content: {
-            List(viewModel.historyText, id: \.self) { text in
-                HStack{
-                    Text(text)
-                }
-            }
-            .listStyle(.plain)
+            HistorySuffixesListView()
         })
     }
-    
-    func opacityForegroundText(for suffixId: String) -> Double {
+
+    func colorForegroundText(for suffixId: SuffixModel) -> UIColor {
         guard let modelIndex = viewModel.sortedSuffixes.firstIndex(where: { model in
-            model.id.uuidString == suffixId
+            model.id.uuidString == suffixId.id.uuidString
         }) else {
-            return 1.0
+            return .blue
         }
-        let result = Double(modelIndex) / Double(viewModel.sortedSuffixes.count)
-        return viewModel.suffixSort == .ASC ? 1 - result : result
+        let itemCount = viewModel.sortedSuffixes.count - 1
+        let val = (CGFloat(modelIndex) / CGFloat(itemCount))
+        switch viewModel.suffixSort {
+        case .ASC:
+            return UIColor(red: val, green: 1 - val, blue: 0.0, alpha: 1.0)
+        case .DESC:
+            return UIColor(red: 1 - val, green: val, blue: 0.0, alpha: 1.0)
+        }
     }
 }

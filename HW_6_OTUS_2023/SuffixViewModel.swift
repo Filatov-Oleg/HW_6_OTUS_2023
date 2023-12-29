@@ -7,13 +7,19 @@
 
 import Foundation
 import SwiftUI
-import Combine
+import CoreData
 
 class SuffixViewModel: ObservableObject {
     
     @Published var sortedSuffixes: [SuffixModel] = .init()
-    @Published var historyText: [String] = .init()
+    @Published var historyText: [SuffixCD] = .init()
 
+    let mocSavedSuffix: NSManagedObjectContext
+
+    init(mocSavedSuffix: NSManagedObjectContext) {
+        self.mocSavedSuffix = mocSavedSuffix
+    }
+    
     var suffixSort: SuffixSort = .ASC
     
     private var suffixes: [SuffixModel] = []
@@ -27,7 +33,7 @@ class SuffixViewModel: ObservableObject {
                 let startTimeForWord: UInt64 = DispatchTime.now().uptimeNanoseconds
                 taskGroup.addTask {
                     let result = try! await self.jobScheduler.addJob(operation:{
-                        self.findSuffixes(in: word, startTime: startTimeForWord)
+                         self.findSuffixes(in: word, startTime: startTimeForWord)
                     })
                     return result
                 }
@@ -42,7 +48,7 @@ class SuffixViewModel: ObservableObject {
             return finalResult
         }
         sortedSuffixes = suffixes
-        historyText.insert(text, at: 0)
+        addToHistory(text)
     }
     
     func findSuffixes(in text: String, startTime: UInt64) -> [String: (Int, UInt64)] {
@@ -56,7 +62,7 @@ class SuffixViewModel: ObservableObject {
         }
         return resultSuffixes
     }
-    
+
     func changeSort() {
         switch suffixSort {
         case .ASC:
@@ -67,5 +73,37 @@ class SuffixViewModel: ObservableObject {
             suffixes.sort(by: <)
         }
         sortedSuffixes = suffixes
+    }
+}
+
+// MARK: Core Data
+
+extension SuffixViewModel {
+    func fetchData() {
+        let request = SuffixCD.fetchRequest()
+        if let savedSuffixes = try? mocSavedSuffix.fetch(request) {
+            self.historyText = savedSuffixes
+        }
+    }
+    
+    func addToHistory(_ text: String) {
+        let newText = SuffixCD(context: mocSavedSuffix)
+        newText.id = UUID()
+        newText.text = text
+        if mocSavedSuffix.hasChanges {
+            try? mocSavedSuffix.save()
+        }
+        historyText.append(newText)
+    }
+    
+    func deleteSuffix(at indexes: IndexSet) {
+        for index in indexes {
+            let text = historyText[index]
+            mocSavedSuffix.delete(text)
+        }
+        historyText.remove(atOffsets: indexes)
+        if mocSavedSuffix.hasChanges {
+            try? mocSavedSuffix.save()
+        }
     }
 }
